@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Error","Representation of an error that can occur within libssh2"]]});

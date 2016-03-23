@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Agent` struct in crate `ssh2`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Agent">
+
+    <title>ssh2::Agent - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>ssh2</a></p><script>window.sidebarCurrent = {name: 'Agent', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>ssh2</a>::<wbr><a class='struct' href=''>Agent</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-32' class='srclink' href='../src/ssh2/src/agent.rs.html#12-15' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Agent&lt;'sess&gt; {
+    // some fields omitted
+}</pre><div class='docblock'><p>A structure representing a connection to an SSH agent.</p>
+
+<p>Agents can be used to authenticate a session.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'sess&gt; <a class='struct' href='../ssh2/struct.Agent.html' title='ssh2::Agent'>Agent</a>&lt;'sess&gt;</code></h3><div class='impl-items'><h4 id='method.connect' class='method'><code>fn <a href='#method.connect' class='fnname'>connect</a>(&amp;mut self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='../ssh2/struct.Error.html' title='ssh2::Error'>Error</a>&gt;</code></h4>
+<div class='docblock'><p>Connect to an ssh-agent running on the system.</p>
+</div><h4 id='method.disconnect' class='method'><code>fn <a href='#method.disconnect' class='fnname'>disconnect</a>(&amp;mut self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='../ssh2/struct.Error.html' title='ssh2::Error'>Error</a>&gt;</code></h4>
+<div class='docblock'><p>Close a connection to an ssh-agent.</p>
+</div><h4 id='method.list_identities' class='method'><code>fn <a href='#method.list_identities' class='fnname'>list_identities</a>(&amp;mut self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='../ssh2/struct.Error.html' title='ssh2::Error'>Error</a>&gt;</code></h4>
+<div class='docblock'><p>Request an ssh-agent to list of public keys, and stores them in the
+internal collection of the handle.</p>
+
+<p>Call <code>identities</code> to get the public keys.</p>
+</div><h4 id='method.identities' class='method'><code>fn <a href='#method.identities' class='fnname'>identities</a>(&amp;self) -&gt; <a class='struct' href='../ssh2/struct.Identities.html' title='ssh2::Identities'>Identities</a></code></h4>
+<div class='docblock'><p>Get an iterator over the identities of this agent.</p>
+</div><h4 id='method.userauth' class='method'><code>fn <a href='#method.userauth' class='fnname'>userauth</a>(&amp;self, username: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, identity: &amp;<a class='struct' href='../ssh2/struct.PublicKey.html' title='ssh2::PublicKey'>PublicKey</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='../ssh2/struct.Error.html' title='ssh2::Error'>Error</a>&gt;</code></h4>
+<div class='docblock'><p>Attempt public key authentication with the help of ssh-agent.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;'a&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../ssh2/struct.Agent.html' title='ssh2::Agent'>Agent</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "ssh2";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

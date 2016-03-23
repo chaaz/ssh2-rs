@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ScpFileStat","Metadata returned about a remote file when received via `scp`."],["Session","An SSH session, typically representing one TCP connection."]]});
