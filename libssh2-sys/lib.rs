@@ -151,6 +151,16 @@ pub const LIBSSH2_SFTP_S_IFDIR: c_ulong = 0o040000;
 pub const LIBSSH2_SFTP_S_IFREG: c_ulong = 0o100000;
 pub const LIBSSH2_SFTP_S_IFLNK: c_ulong = 0o120000;
 
+pub const LIBSSH2_TRACE_TRANS: c_int = 1 << 1;
+pub const LIBSSH2_TRACE_KEX: c_int = 1 << 2;
+pub const LIBSSH2_TRACE_AUTH: c_int = 1 << 3;
+pub const LIBSSH2_TRACE_CONN: c_int = 1 << 4;
+pub const LIBSSH2_TRACE_SCP: c_int = 1 << 5;
+pub const LIBSSH2_TRACE_SFTP: c_int = 1 << 6;
+pub const LIBSSH2_TRACE_ERROR: c_int = 1 << 7;
+pub const LIBSSH2_TRACE_PUBLICKEY: c_int = 1 << 8;
+pub const LIBSSH2_TRACE_SOCKET: c_int = 1 << 9;
+
 pub enum LIBSSH2_SESSION {}
 pub enum LIBSSH2_AGENT {}
 pub enum LIBSSH2_CHANNEL {}
@@ -231,6 +241,13 @@ extern {
     pub fn libssh2_free(sess: *mut LIBSSH2_SESSION, ptr: *mut c_void);
     pub fn libssh2_hostkey_hash(session: *mut LIBSSH2_SESSION,
                                 hash_type: c_int) -> *const c_char;
+
+    // debug
+    //
+    // Use this as
+    // `raw::libssh2_trace(ret, raw::LIBSSH2_TRACE_AUTH | ...);` to
+    // output low-level libssh2 to stdio.
+    pub fn libssh2_trace(sess: *mut LIBSSH2_SESSION, bitmask: c_int);
 
     // session
     pub fn libssh2_session_init_ex(alloc: Option<LIBSSH2_ALLOC_FUNC>,

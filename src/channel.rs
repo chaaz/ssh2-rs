@@ -19,7 +19,12 @@ pub struct Channel<'sess> {
     raw: *mut raw::LIBSSH2_CHANNEL,
     sess: &'sess Session,
     read_limit: Option<u64>,
+    freed: bool,
 }
+
+/// Does libssh work across threads? Documentation seems unclear, so
+/// mark unsafe for now.
+unsafe impl<'sess> Send for Channel<'sess> {}
 
 /// A channel can have a number of streams, each identified by an id, each of
 /// which implements the `Read` and `Write` traits.
@@ -315,6 +320,19 @@ impl<'sess> Channel<'sess> {
         unsafe { self.sess.rc(raw::libssh2_channel_wait_eof(self.raw)) }
     }
 
+    /// Wait for the channel to be free.
+    pub fn free(&mut self) -> Result<(), Error> {
+        if self.freed {
+            Ok(())
+        } else {
+            let f = unsafe {
+                self.sess.rc(raw::libssh2_channel_free(self.raw))
+            };
+            if let Ok(_) = f { self.freed = true; }
+            f
+        }
+    }
+
     /// Close an active data channel.
     ///
     /// In practice this means sending an SSH_MSG_CLOSE packet to the remote
@@ -348,6 +366,7 @@ impl<'sess> SessionBinding<'sess> for Channel<'sess> {
             raw: raw,
             sess: sess,
             read_limit: None,
+            freed: false,
         }
     }
     fn raw(&self) -> *mut raw::LIBSSH2_CHANNEL { self.raw }
@@ -371,8 +390,13 @@ impl<'sess> Read for Channel<'sess> {
 
 impl<'sess> Drop for Channel<'sess> {
     fn drop(&mut self) {
-        unsafe {
-            let _ = raw::libssh2_channel_free(self.raw);
+        // We can't allow async freeing operations during Drop.
+        if !self.freed {
+            let b = self.sess.is_blocking();
+            if !b { self.sess.set_blocking(true); }
+            let r = unsafe { raw::libssh2_channel_free(self.raw) };
+            if !b { self.sess.set_blocking(false); }
+            assert_eq!(r, 0)
         }
     }
 }

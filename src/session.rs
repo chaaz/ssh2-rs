@@ -136,7 +136,7 @@ impl Session {
     /// It is also highly recommended that the stream provided is not used
     /// concurrently elsewhere for the duration of this session as it may
     /// interfere with the protocol.
-    pub fn handshake(&mut self, stream: &TcpStream) -> Result<(), Error> {
+    pub fn handshake(&self, stream: &TcpStream) -> Result<(), Error> {
         unsafe {
             return self.rc(handshake(self.raw, stream));
         }
